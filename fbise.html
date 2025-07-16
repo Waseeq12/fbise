@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FBISE | Result Announcement</title>
+    <meta name="description" content="Check FBISE Federal Board result online. Get your exam results quickly and accurately">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 50px;
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 700px;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .form-style {
+            border: 2px solid #4b8f40;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .form-style .lab {
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        input[type="text"] {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            width: calc(100% - 40px);
+            max-width: 300px;
+            margin-bottom: 10px;
+        }
+
+        input[type="button"] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background: #06F;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .date-time {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        ol {
+            text-align: left;
+            margin-left: 0;
+            padding-left: 20px;
+        }
+
+        ol li {
+            margin-bottom: 10px;
+        }
+
+        .error {
+            color: red;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+    
+    <script language="javascript" type="text/javascript">
+        function stopRKey(evt) {
+            var evt = (evt) ? evt : ((event) ? event : null);
+            var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+            if ((evt.keyCode == 13) && (node.type == "text")) { 
+                return false; 
+            }
+        }
+        document.onkeypress = stopRKey;
+    </script>
+    
+    <script type='text/javascript'>
+        function isNumeric(elem, helperMsg) {
+            var numericExpression = /^[0-9]{7}$/;  // Accepts any 7-digit number
+            if (elem.value.match(numericExpression)) {
+                var x = elem.value;
+                document.getElementById('numbers').value = '';
+                document.getElementById('numbers').focus();
+                var k = x + ".html";  // Looks for file in same directory
+                
+                // Check if file exists before opening
+                var xhr = new XMLHttpRequest();
+                xhr.open('HEAD', k, false);
+                xhr.send();
+                
+                if (xhr.status == "404") {
+                    document.getElementById('error-msg').style.display = 'block';
+                    document.getElementById('error-msg').innerHTML = 'Result not found for this roll number';
+                    elem.focus();
+                    return false;
+                } else {
+                    window.open(k, '_blank');
+                }
+            }
+            else {
+                document.getElementById('error-msg').style.display = 'block';
+                document.getElementById('error-msg').innerHTML = helperMsg;
+                elem.focus();
+                return false;
+            }
+        }
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        function hideError() {
+            document.getElementById('error-msg').style.display = 'none';
+        }
+    </script>
+</head>
+<body onload="document.getElementById('numbers').focus()">
+    <div class="container">
+        <header>
+            <img src="fbise_logo_3d.png" alt="FBISE Logo" class="logo">
+            <h2>Federal Board of Intermediate and Secondary Education Islamabad</h2>
+        </header>
+       
+        <form class="form-style"> 
+            <p>RESULT OF SSC (Part I&II) 1st ANNUAL EXAMINATIONS 2025</p>
+            <label class="lab">Enter Roll No:</label><br>
+            <input type="text" maxLength="7" id="numbers" class="required number" 
+                   onkeypress="return isNumberKey(event)" 
+                   oninput="hideError()"
+                   required autofocus="autofocus"><br>
+            <div id="error-msg" class="error"></div>
+            <input type="button" onclick="isNumeric(document.getElementById('numbers'), 'Please enter a valid 7-digit roll number')" 
+                   value="Search"><br><br>
+
+            <font color="#009900"><b>The result is also available through:</b></font>
+            <ol>
+                <li>By sending SMS on <b>5050</b> with the format: <b>FB(Space)[Roll Number]</b> to obtain result on Mobile.</li>
+                <li>Telephone Exchange by calling <b>(051) 9269555--59</b></li>
+            </ol>
+        </form>
+    </div>
+</body>
+</html>
